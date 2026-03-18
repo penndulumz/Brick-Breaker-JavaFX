@@ -1,4 +1,4 @@
-@startuml
+﻿@startuml
 skinparam classAttributeIconSize 0
 skinparam shadowing false
 skinparam defaultFontName Arial
@@ -6,8 +6,8 @@ skinparam packageStyle rectangle
 skinparam linetype ortho
 
 ' ================== PACKAGES ==================
-package "org.OOPproject.ArkanoidFX" as arkanoid {
-  class ArkanoidGame
+package "org.OOPproject.BrickBreakerFX" as BrickBreaker {
+  class BrickBreakerGame
 }
 
 package "controller" as ctrl {
@@ -96,9 +96,9 @@ pwr.PowerUp <|-- pwr.ExtraLifePowerUp
 pwr.PowerUp <|-- pwr.GunPowerUp
 
 ' ================== CONTROLLER <-> VIEW/MODEL ==================
-arkanoid.ArkanoidGame o-- ctrl.MenuController
-arkanoid.ArkanoidGame o-- ctrl.GameController
-arkanoid.ArkanoidGame o-- ctrl.EndGameController
+BrickBreaker.BrickBreakerGame o-- ctrl.MenuController
+BrickBreaker.BrickBreakerGame o-- ctrl.GameController
+BrickBreaker.BrickBreakerGame o-- ctrl.EndGameController
 
 ctrl.MenuController o-- view.MenuView
 ctrl.GameController o-- view.GameView
@@ -167,3 +167,4 @@ pwr.PowerUpTypes : EXPAND_PADDLE\nLASER_PADDLE\nFAST_BALL\nMULTI_BALL\nEXTRA_LIF
 bricks.BrickType : NONE\nGOLD\nGRAY\nRUBY\nYLLW\nBLUE\nMGNT\nLIME\nWHIT\nORNG\nCYAN
 
 @enduml
+

@@ -1,9 +1,9 @@
-import org.OOPproject.ArkanoidFX.model.Paddle;
-import org.OOPproject.ArkanoidFX.utils.Constants;
+import org.OOPproject.BrickBreakerFX.model.Paddle;
+import org.OOPproject.BrickBreakerFX.utils.Constants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.OOPproject.ArkanoidFX.utils.Constants.*;
+import static org.OOPproject.BrickBreakerFX.utils.Constants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -96,3 +96,4 @@ class PaddleTest {
                 "Sprite animation frame should advance over time");
     }
 }
+

@@ -1,132 +1,216 @@
-# ArkanoidFX — Bài tập lớn Lập trình Hướng đối tượng (OOP)
+# BrickBreakerFX
 
-Một bản Arkanoid viết bằng JavaFX, tập trung thể hiện các nguyên tắc OOP, tách lớp rõ ràng (Model–View–Controller), kèm hiệu ứng đồ họa/âm thanh, cấp độ, power‑up, địch (enemy) và leaderboard.
+A JavaFX brick-breaker game built as an Object-Oriented Programming school project.
 
----
+This project focuses on clean architecture, gameplay extensibility, and reusable game systems (levels, collisions, power-ups, enemies, effects, and leaderboard persistence).
+
+## Project Goals
+
+- Build a complete desktop arcade game with Java and JavaFX.
+- Apply OOP principles in a practical, medium-sized codebase.
+- Use a layered architecture so logic, rendering, and input handling stay decoupled.
+- Keep gameplay systems modular for easy extension.
+
+## Features
+
+- Classic brick-breaker gameplay with lives, score, and levels.
+- Multiple brick types:
+  - Normal
+  - Strong
+  - Extra strong
+  - Unbreakable
+  - Colored variants
+- Power-ups:
+  - Expand paddle
+  - Fast ball
+  - Multi-ball
+  - Extra life
+  - Gun mode
+- Enemy system with different behaviors.
+- Visual effects:
+  - Brick hit blink
+  - Enemy destruction animation
+  - Particle burst effects
+- Audio feedback for key events.
+- Persistent leaderboard stored in `leaderboard.txt`.
+
+## Controls
+
+- `A`: Move paddle left
+- `D`: Move paddle right
+- `P`: Pause/Resume
+- `SPACE`: Start game from menu
+- `L`: Open leaderboard in menu
+- `ESC`: Return from leaderboard
+
+## Tech Stack
+
+- Java 24
+- JavaFX (`controls`, `graphics`, `fxml`, `media`)
+- Maven Wrapper (`mvnw`, `mvnw.cmd`)
+- JUnit 5
+
+## Project Structure
+
+```text
+src/
+  main/
+    java/
+      org/OOPproject/BrickBreakerFX/
+        BrickBreakerGame.java
+        controller/
+          MenuController.java
+          GameController.java
+          EndGameController.java
+        model/
+          GameEngine.java
+          GameObject.java
+          MovableObject.java
+          Ball.java
+          Paddle.java
+          Bullet.java
+          Enemy.java
+          Level.java
+          Sprite.java
+          Bricks/
+          PowerUps/
+          effects/
+          engine/
+          managers/
+        utils/
+          Constants.java
+          GameState.java
+          InputSignal.java
+        view/
+          AssetManager.java
+          MenuView.java
+          GameView.java
+          EndGameView.java
+  resources/
+    assets/
+      textures/
+      sfx/
+  test/
+    java/
+      ... unit/integration tests ...
+```
+
+## Architecture and How Parts Connect
+
+The project follows an MVC-style separation with explicit game-domain modules:
+
+1. Application Entry
+- `BrickBreakerGame` creates and switches scenes.
+- It wires Menu, Game, and End screens through controllers.
+
+2. Controllers (Input + Loop Orchestration)
+- `MenuController`: menu interactions and transitions.
+- `GameController`: owns the frame loop (`AnimationTimer`), forwards input to the model, triggers rendering.
+- `EndGameController`: post-game UI and restart/menu flow.
+
+3. Model (Game Rules and State)
+- `GameEngine`: central coordinator for game state updates.
+- `engine/CollisionHandler`: encapsulates collision resolution and score/effect triggers.
+- `engine/EnemySpawner`: encapsulates enemy spawning cycles and movement timing.
+- `Bricks/`, `PowerUps/`, and core entities contain domain behaviors.
+- `effects/` holds visual-effect state objects (`Blink`, `Destroy`, `Particle`, `ParticleSystem`).
+- `managers/` contains service-style singletons (`SoundManager`, `LeaderboardManager`).
+
+4. View (Rendering)
+- `GameView`, `MenuView`, `EndGameView` render to JavaFX canvas.
+- `AssetManager` loads and serves textures/audio.
+
+### Runtime Data Flow
+
+1. User presses key in active scene.
+2. Controller maps key to `InputSignal` and updates `GameEngine`.
+3. `GameEngine.updateGame(deltaTime)` advances simulation.
+4. `CollisionHandler` and `EnemySpawner` process specialized subsystems.
+5. View reads current model state and renders frame.
+6. On game end, controller transitions to End view and optional leaderboard update.
+
+## OOP Principles Used
+
+1. Encapsulation
+- Game object internals are hidden behind methods and controlled access.
+- State transitions are centralized in `GameEngine` and specialized engine classes.
+
+2. Abstraction
+- `GameObject` and `MovableObject` define reusable contracts for domain entities.
+- Controllers and views operate on high-level model interfaces instead of internal details.
+
+3. Inheritance
+- Shared behavior is inherited across entities (for example movable vs non-movable game objects).
+- Brick and power-up families share base behavior and override specifics.
+
+4. Polymorphism
+- Different brick/power-up/enemy types are processed through common parent types.
+- Update and interaction logic delegates to concrete implementations at runtime.
+
+5. Composition over Monolith
+- Complex responsibilities are split into composable classes (`CollisionHandler`, `EnemySpawner`, managers, effects), reducing `GameEngine` size and coupling.
+
+## Design Patterns in Use
+
+- Singleton:
+  - `GameEngine`
+  - `AssetManager`
+  - `SoundManager`
+  - `LeaderboardManager`
+- Factory:
+  - `BrickFactory` builds concrete brick variants from type/configuration.
+
+## Build and Run
+
+### Prerequisites
+
+- JDK 24 installed and available in `PATH`.
+
+### Run the Game
+
+```bash
+./mvnw.cmd clean javafx:run
+```
+
+### Run Tests
+
+```bash
+./mvnw.cmd test
+```
+
+## Leaderboard Persistence
+
+- File location: project root `leaderboard.txt`
+- Format per line: `playerName,score,level`
+- Managed by `LeaderboardManager`
+
+## Notes
+
+- The project is an educational implementation inspired by classic brick-breaker gameplay mechanics.
+- Naming and packaging use `BrickBreakerFX` for project-safe branding.
 
 ## Credits
 
-- Lấy cảm hứng từ và phát triển dựa trên ý tưởng/assets của "Jarkanoid" bởi Hansolo.
+- This project is inspired by HanSolo's JArkanoid repository:
+  - https://github.com/HanSolo/jarkanoid
+- Some resources (sprites/audio ideas/assets) were adapted from that project for educational use in this school assignment.
+- Original project author: Gerrit Grunwald (HanSolo).
 
----
+## License and Legal
 
-## 1) Tính năng nổi bật (đã có trong mã nguồn)
+This project includes material inspired by and/or adapted from a third-party repository that is licensed under Apache License 2.0.
 
-- Gameplay cơ bản
-  - Paddle điều khiển bằng A/D; bóng nảy với tường, paddle, gạch; rơi khỏi màn hình sẽ mất mạng.
-  - Quản lý mạng (lives), điểm (score), trạng thái game (PLAYING, PAUSED, GAME_OVER).
-  - Nhiều cấp độ (Level 1…32 + ngẫu nhiên); layout gạch đa dạng, có gạch không phá được.
-- Hệ thống gạch (Bricks)
-  - ColoredBrick (RUBY, YLLW, BLUE, MGNT, LIME, WHIT, ORNG, CYAN).
-  - StrongBrick (bền, cần nhiều hit), ExtraStrongBrick (rất bền), UnbreakableBrick (không phá).
-- Power‑Up rơi khi phá gạch (xác suất ~15%) và có thời gian hiệu lực
-  - ExpandPaddlePowerUp (mở rộng paddle)
-  - FastBallPowerUp (tăng tốc bóng)
-  - MultiBallPowerUp (nhân đôi bóng)
-  - ExtraLifePowerUp (thêm mạng)
-  - GunPowerUp (trang bị súng cho paddle; bắn bullet phá gạch/địch)
-- Địch (Enemies) với nhiều kiểu hành vi
-  - Reflector (va đập phản xạ bóng), Up/Down‑Sensitive (chỉ bị hạ khi bóng đi lên/xuống)
-  - Cơ chế spawn qua “cửa” trên viền, có hoạt ảnh mở/đóng
-- Hiệu ứng hình/âm
-  - Sprite map cho paddle (thường/rộng/gun), bóng, gạch, enemy; shadow, blink khi gạch bị trúng, explosion khi enemy nổ
-  - ParticleSystem tạo hiệu ứng hạt khi phá gạch
-  - Âm thanh: va chạm, power‑up, nổ, level ready, game over…
-- Giao diện & màn hình
-  - Menu: SPACE để bắt đầu, L để xem Leaderboard, ESC để quay lại
-  - In‑game: hiển thị LV, mạng (icon tim), điểm, gợi ý phím P (pause)
-  - End Game: màn hình kết thúc (điều hướng lại menu/chơi tiếp)
-- Leaderboard (tùy chọn)
-  - Lưu file `leaderboard.txt` (định dạng: `name,score,level`), đọc/ghi, sắp xếp giảm dần theo điểm rồi level
+- Upstream project: HanSolo/jarkanoid
+- Upstream license: Apache License 2.0
+- Upstream license file: https://raw.githubusercontent.com/HanSolo/jarkanoid/main/LICENSE
 
----
+To keep this repository compliant when distributing source or binaries:
 
-## 2) Điều khiển
+1. Keep attribution to HanSolo/jarkanoid in this README and in `NOTICE`.
+2. Keep a copy of Apache-2.0 license text in this repository (`THIRD_PARTY_LICENSES/Apache-2.0.txt`).
+3. Keep modification notices where you changed/adapted upstream material.
+4. Do not use the original project's trademarks or branding as your own product name.
 
-- Trong game: A (trái), D (phải), P (tạm dừng/tiếp tục)
-- Ở Menu: SPACE (bắt đầu), L (Leaderboard), ESC (thoát Leaderboard về Menu)
-- Bóng khởi đầu “dính” paddle; di chuyển paddle để thả bóng ra
-
----
-
-## 3) Kiến trúc & Thiết kế OOP
-
-- Nguyên tắc OOP áp dụng rõ ràng
-  - Đóng gói: thuộc tính private/protected, cung cấp getter/setter hợp lý
-  - Kế thừa: `MovableObject` kế thừa `GameObject`; `Ball`, `Paddle`, `Enemy` kế thừa `MovableObject`; `Brick` và các biến thể kế thừa cùng hệ thống; `PowerUp` là lớp trừu tượng với các lớp con cụ thể
-  - Đa hình: các phương thức `update`, `move`, `render` (ở View) xử lý theo kiểu đối tượng
-  - Trừu tượng: lớp cơ sở trừu tượng định nghĩa hành vi chung, ẩn chi tiết triển khai
-- Mẫu thiết kế (Design Patterns)
-  - Singleton: `GameEngine`, `AssetManager`, `SoundManager`, `MenuController`, `GameController`, `EndGameController`, `LeaderboardManager`
-  - Factory: `BrickFactory` tạo gạch theo `BrickType`
-- Phân lớp theo MVC
-  - Model: logic game, đối tượng (Ball/Paddle/Brick/PowerUp/Enemy), va chạm, điểm/mạng, level, particle, âm thanh, leaderboard…
-  - View: JavaFX `Canvas` vẽ nền, viền, UI, sprite, hiệu ứng, particle
-  - Controller: nhận input phím, điều phối vòng lặp game (AnimationTimer), chuyển scene Menu ↔ Game ↔ EndGame
-
----
-
-## 4) Cấu trúc dự án
-
-- `src/main/java/org/OOPproject/ArkanoidFX/ArkanoidGame.java` — Entry point JavaFX, quản lý scene
-- `model/`
-  - `GameEngine` — Trái tim logic: cập nhật, va chạm, power‑up, enemy, tiến độ level, điểm, mạng, trạng thái
-  - `GameObject`, `MovableObject` — lớp cơ sở; `Paddle`, `Ball`, `Bullet`, `Enemy`
-  - `Bricks/` — `Brick` + biến thể (`ColoredBrick`, `StrongBrick`, `ExtraStrongBrick`, `UnbreakableBrick`), `BrickFactory`, `BrickType`
-  - `PowerUps/` — `PowerUp` + `ExpandPaddlePowerUp`, `FastBallPowerUp`, `MultiBallPowerUp`, `ExtraLifePowerUp`, `GunPowerUp`, `PowerUpTypes`
-  - `Level` — layout cấp độ sẵn có (1…32) + sinh ngẫu nhiên
-  - `Sprite`, `Particle`, `ParticleSystem`, `Blink`, `Destroy`
-  - `SoundManager`, `LeaderboardManager`
-- `view/`
-  - `GameView`, `MenuView`, `EndGameView` — vẽ game/menu/end bằng JavaFX Canvas; `AssetManager` tải/cấp phát ảnh/âm thanh
-- `controller/`
-  - `MenuController`, `GameController`, `EndGameController` — nhận input, vòng lặp AnimationTimer, chuyển scene
-- `src/main/resources/assets/` — textures, sfx, font; cấu hình qua `AssetManager`
-- `leaderboard.txt` — dữ liệu điểm cao
-- `src/test/java/` — Unit tests JUnit cho core (GameEngine, GameObject, Paddle, Sprite, Particle, Asset/Sound)
-
----
-
-## 5) Cách chạy (Windows, Maven Wrapper)
-
-Yêu cầu:
-- JDK 24 (POM thiết lập maven-compiler-plugin source/target = 24)
-Chạy game (JavaFX):
-```cmd
-mvnw.cmd clean javafx:run
-```
-
-Chạy test:
-```cmd
-mvnw.cmd -q test
-```
-
-## 6) Cơ chế va chạm & vòng lặp
-
-- Vòng lặp game: `AnimationTimer` trên JavaFX Application Thread; mỗi khung: đọc input → cập nhật `GameEngine.updateGame(delta)` → `GameView.render()`
-- Va chạm:
-  - Ball–Paddle: góc nảy phụ thuộc vị trí tiếp xúc + vận tốc paddle (tạo “độ xoáy”), đảm bảo bay lên; cooldown tránh double‑hit
-  - Ball/Bullet–Brick: tính toán hướng nảy theo cạnh va chạm; tạo particle + blink; phá hủy gạch, cộng điểm, có thể spawn power‑up
-  - Ball/Bullet–Enemy: theo loại enemy; hạ địch → explosion + điểm
-  - Power‑Up–Paddle: kích hoạt hiệu ứng, lưu thời lượng, tự hủy khi hết hạn (tự đảo hiệu ứng)
-- Quản lý mạng/level: rơi hết bóng → `loseLife()`; hết mạng → `gameOver()`; hết gạch phá được → `levelComplete()`
-
----
-
-## 7) Leaderboard
-
-- Lưu tại file gốc dự án: `leaderboard.txt` (định dạng: `playerName,score,level`)
-- Đọc/ghi tự động, sắp xếp theo điểm giảm dần; vào Menu nhấn `L` để xem Top 10
-- Reset leaderboard: xóa file `leaderboard.txt`
-
----
-
-## 8) Kiểm thử (JUnit)
-
-- Các test tiêu biểu: `GameEngineTest`, `GameObjectTest`, `MovableObjectTest`, `PaddleTest`, `SpriteTest`, `ParticleTest`, `AssetManagerIntegrationTest`, `SoundManagerIntegrationTest`
-- Chạy toàn bộ test:
-```cmd
-mvnw.cmd -q test
-```
-[![Watch the video](https://img.youtube.com/vi/<VIDEO_ID>/0.jpg)](https://www.youtube.com/shorts/Z-OIt5e64Bs)
----
+Important:
+- This section is practical compliance guidance for a school project, not legal advice.
+- If your school publishes this project publicly, ask a teacher/supervisor to confirm your final licensing choice for your own original code.

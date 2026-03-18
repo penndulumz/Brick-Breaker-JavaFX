@@ -1,6 +1,6 @@
 import javafx.scene.paint.Color;
-import org.OOPproject.ArkanoidFX.model.Particle;
-import org.OOPproject.ArkanoidFX.model.ParticleSystem;
+import org.OOPproject.BrickBreakerFX.model.effects.Particle;
+import org.OOPproject.BrickBreakerFX.model.effects.ParticleSystem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -68,3 +68,4 @@ class ParticleSystemTest {
                 "clear() should remove all particles");
     }
 }
+

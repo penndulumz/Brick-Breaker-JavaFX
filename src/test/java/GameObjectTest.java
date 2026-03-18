@@ -1,4 +1,4 @@
-import org.OOPproject.ArkanoidFX.model.GameObject;
+import org.OOPproject.BrickBreakerFX.model.GameObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ class GameObjectTest {
 
     @BeforeEach
     void setUp() {
-        // Tạo hai GameObject ẩn danh để test (vì GameObject là abstract)
+        // Táº¡o hai GameObject áº©n danh Ä‘á»ƒ test (vÃ¬ GameObject lÃ  abstract)
         obj1 = new GameObject(50, 50, 20, 20) {};
         obj2 = new GameObject(60, 60, 20, 20) {};
     }
@@ -39,7 +39,7 @@ class GameObjectTest {
 
     @Test
     void testCollidesWithTrue() {
-        // Hai vật thể giao nhau
+        // Hai váº­t thá»ƒ giao nhau
         assertTrue(obj1.collidesWith(obj2), "Objects should collide when overlapping");
     }
 
@@ -61,3 +61,4 @@ class GameObjectTest {
         assertTrue(obj1.collidesWith(slightlyOverlap), "Objects with slight overlap should collide");
     }
 }
+

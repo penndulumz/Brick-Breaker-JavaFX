@@ -1,13 +1,13 @@
-import org.OOPproject.ArkanoidFX.model.Bricks.Brick;
-import org.OOPproject.ArkanoidFX.model.Bricks.BrickType;
+import org.OOPproject.BrickBreakerFX.model.Bricks.Brick;
+import org.OOPproject.BrickBreakerFX.model.Bricks.BrickType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test cho lớp Brick (abstract) và enum BrickType.
- * Sử dụng lớp giả lập để kiểm thử hành vi chung.
+ * Unit test cho lá»›p Brick (abstract) vÃ  enum BrickType.
+ * Sá»­ dá»¥ng lá»›p giáº£ láº­p Ä‘á»ƒ kiá»ƒm thá»­ hÃ nh vi chung.
  */
 class BrickTest {
 
@@ -57,7 +57,7 @@ class BrickTest {
         brick.takeHit();
         assertTrue(brick.isDestroyed(), "Brick should be destroyed when hitPoints <= 0");
 
-        // Giảm thêm lần nữa vẫn phải true
+        // Giáº£m thÃªm láº§n ná»¯a váº«n pháº£i true
         brick.takeHit();
         assertTrue(brick.isDestroyed());
     }
@@ -75,7 +75,7 @@ class BrickTest {
 
     @Test
     void testBrickTypeValues() {
-        // Đảm bảo mỗi BrickType có giá trị hợp lệ theo thiết kế
+        // Äáº£m báº£o má»—i BrickType cÃ³ giÃ¡ trá»‹ há»£p lá»‡ theo thiáº¿t káº¿
         assertAll(
                 () -> assertEquals(0, BrickType.NONE.maxHits),
                 () -> assertEquals(-1, BrickType.GOLD.maxHits),
@@ -105,3 +105,4 @@ class BrickTest {
         );
     }
 }
+

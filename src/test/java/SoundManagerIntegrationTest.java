@@ -1,14 +1,14 @@
 import javafx.application.Platform;
-import org.OOPproject.ArkanoidFX.model.SoundManager;
+import org.OOPproject.BrickBreakerFX.model.managers.SoundManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Integration test cho SoundManager với AssetManager thật.
- * test này sẽ tải và phát các file âm thanh thật trong /assets/sfx/.
- * Đảm bảo các file WAV tồn tại ở đúng đường dẫn resources.
+ * Integration test cho SoundManager vá»›i AssetManager tháº­t.
+ * test nÃ y sáº½ táº£i vÃ  phÃ¡t cÃ¡c file Ã¢m thanh tháº­t trong /assets/sfx/.
+ * Äáº£m báº£o cÃ¡c file WAV tá»“n táº¡i á»Ÿ Ä‘Ãºng Ä‘Æ°á»ng dáº«n resources.
  */
 public class SoundManagerIntegrationTest {
 
@@ -44,3 +44,4 @@ public class SoundManagerIntegrationTest {
         assertSame(instance1, instance2, "SoundManager must be a singleton");
     }
 }
+

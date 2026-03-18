@@ -1,14 +1,14 @@
-import org.OOPproject.ArkanoidFX.model.Blink;
-import org.OOPproject.ArkanoidFX.model.Bricks.Brick;
-import org.OOPproject.ArkanoidFX.model.Bricks.BrickType;
+import org.OOPproject.BrickBreakerFX.model.effects.Blink;
+import org.OOPproject.BrickBreakerFX.model.Bricks.Brick;
+import org.OOPproject.BrickBreakerFX.model.Bricks.BrickType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test cho lớp Blink.
- * Kiểm tra sự liên kết với Brick, cập nhật hoạt ảnh Sprite và trạng thái kết thúc.
+ * Unit test cho lá»›p Blink.
+ * Kiá»ƒm tra sá»± liÃªn káº¿t vá»›i Brick, cáº­p nháº­t hoáº¡t áº£nh Sprite vÃ  tráº¡ng thÃ¡i káº¿t thÃºc.
  */
 
 
@@ -18,7 +18,7 @@ class BlinkTest {
     private Blink blink;
     private Brick mockBrick;
 
-    /** Một lớp Brick giả để test (vì Brick là abstract). */
+    /** Má»™t lá»›p Brick giáº£ Ä‘á»ƒ test (vÃ¬ Brick lÃ  abstract). */
     static class TestBrick extends Brick {
         public TestBrick(int x, int y, int w, int h, BrickType type) {
             super(x, y, w, h, type);
@@ -49,7 +49,7 @@ class BlinkTest {
 
     @Test
     void testUpdateKeepsPositionSynced() {
-        // Di chuyển brick
+        // Di chuyá»ƒn brick
         mockBrick.setX(200);
         mockBrick.setY(300);
 
@@ -62,7 +62,7 @@ class BlinkTest {
     @Test
     void testSpriteAdvancesOverTime() {
         int oldFrameX = blink.getFrameX();
-        blink.update(0.05); // Sau 0.05s, frame phải đổi
+        blink.update(0.05); // Sau 0.05s, frame pháº£i Ä‘á»•i
 
         assertTrue(blink.getFrameX() != oldFrameX || blink.getFrameY() > 0,
                 "Frame of sprite must change after time update");
@@ -72,7 +72,7 @@ class BlinkTest {
     //TODO debug this test/
     @Test
     void testBlinkFinishesAfterEnoughTime() {
-        // Blink có Sprite 8x3, mỗi frame 0.015s => 24 frame => khoảng 0.36s
+        // Blink cÃ³ Sprite 8x3, má»—i frame 0.015s => 24 frame => khoáº£ng 0.36s
         double totalTime = 0.36;
         double step = 0.015;
 
@@ -91,3 +91,4 @@ class BlinkTest {
         assertTrue(blink.getFrameY() < blink.getMaxFrameY());
     }
 }
+

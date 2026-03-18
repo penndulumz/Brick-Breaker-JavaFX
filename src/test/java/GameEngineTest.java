@@ -1,6 +1,6 @@
-import org.OOPproject.ArkanoidFX.model.GameEngine;
+import org.OOPproject.BrickBreakerFX.model.GameEngine;
 
-import org.OOPproject.ArkanoidFX.utils.GameState;
+import org.OOPproject.BrickBreakerFX.utils.GameState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,14 +15,14 @@ class GameEngineTest {
     @BeforeEach
     void setup() {
         engine = GameEngine.getInstance();
-        engine.resetGame(); // đảm bảo trạng thái sạch trước mỗi test
+        engine.resetGame(); // Ä‘áº£m báº£o tráº¡ng thÃ¡i sáº¡ch trÆ°á»›c má»—i test
     }
 
     @Test
     void testSingleton() {
         GameEngine e1 = GameEngine.getInstance();
         GameEngine e2 = GameEngine.getInstance();
-        assertSame(e1, e2, "GameEngine phải là singleton");
+        assertSame(e1, e2, "GameEngine pháº£i lÃ  singleton");
     }
 
     @Test
@@ -59,20 +59,20 @@ class GameEngineTest {
 
     @Test
     void testLoseLifeAndGameOverLogic() throws Exception {
-        // lives = 3, giảm 3 lần sẽ game over
+        // lives = 3, giáº£m 3 láº§n sáº½ game over
         Method loseLife = GameEngine.class.getDeclaredMethod("loseLife");
         loseLife.setAccessible(true);
 
-        // Lần 1
+        // Láº§n 1
         loseLife.invoke(engine);
         assertEquals(2, engine.getLives());
         assertEquals(GameState.PLAYING, engine.getGameState());
 
-        // Lần 2
+        // Láº§n 2
         loseLife.invoke(engine);
         assertEquals(1, engine.getLives());
 
-        // Lần 3 → gameOver
+        // Láº§n 3 â†’ gameOver
         loseLife.invoke(engine);
         assertEquals(GameState.GAME_OVER, engine.getGameState());
     }
@@ -81,37 +81,37 @@ class GameEngineTest {
     void testIsLevelComplete_AllUnbreakable_ReturnsTrue() throws Exception {
         var bricks = engine.getBricks();
         bricks.clear();
-        bricks.add(new org.OOPproject.ArkanoidFX.model.Bricks.UnbreakableBrick(0,0,10,10));
+        bricks.add(new org.OOPproject.BrickBreakerFX.model.Bricks.UnbreakableBrick(0,0,10,10));
 
         Method isLevelComplete = GameEngine.class.getDeclaredMethod("isLevelComplete");
         isLevelComplete.setAccessible(true);
         boolean complete = (boolean) isLevelComplete.invoke(engine);
 
-        assertTrue(complete, "Level hoàn thành khi chỉ còn gạch không phá được");
+        assertTrue(complete, "Level hoÃ n thÃ nh khi chá»‰ cÃ²n gáº¡ch khÃ´ng phÃ¡ Ä‘Æ°á»£c");
     }
 
     @Test
     void testIsLevelComplete_WithBreakable_ReturnsFalse() throws Exception {
         var bricks = engine.getBricks();
         bricks.clear();
-        bricks.add(new org.OOPproject.ArkanoidFX.model.Bricks.NormalBrick(0,0,10,10));
+        bricks.add(new org.OOPproject.BrickBreakerFX.model.Bricks.NormalBrick(0,0,10,10));
 
         Method isLevelComplete = GameEngine.class.getDeclaredMethod("isLevelComplete");
         isLevelComplete.setAccessible(true);
         boolean complete = (boolean) isLevelComplete.invoke(engine);
 
-        assertFalse(complete, "Level chưa hoàn thành khi còn gạch phá được");
+        assertFalse(complete, "Level chÆ°a hoÃ n thÃ nh khi cÃ²n gáº¡ch phÃ¡ Ä‘Æ°á»£c");
     }
 
     @Test
     void testUpdateEnemiesSpawningLogic() throws Exception {
-        // Truy cập phương thức private
+        // Truy cáº­p phÆ°Æ¡ng thá»©c private
         Method updateEnemies = GameEngine.class.getDeclaredMethod("updateEnemies", double.class);
         updateEnemies.setAccessible(true);
 
         assertFalse(engine.isSpawningEnemies());
         updateEnemies.invoke(engine, 0.1);
-        assertTrue(engine.isSpawningEnemies(), "Sau khi updateEnemies, trạng thái spawningEnemies phải bật");
+        assertTrue(engine.isSpawningEnemies(), "Sau khi updateEnemies, tráº¡ng thÃ¡i spawningEnemies pháº£i báº­t");
     }
 
     @Test
@@ -127,6 +127,7 @@ class GameEngineTest {
         levelComplete.setAccessible(true);
         levelComplete.invoke(engine);
 
-        assertTrue(engine.getLevelNumber() > before, "Level phải tăng sau khi levelComplete()");
+        assertTrue(engine.getLevelNumber() > before, "Level pháº£i tÄƒng sau khi levelComplete()");
     }
 }
+

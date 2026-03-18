@@ -1,5 +1,5 @@
-import org.OOPproject.ArkanoidFX.model.GameObject;
-import org.OOPproject.ArkanoidFX.model.MovableObject;
+import org.OOPproject.BrickBreakerFX.model.GameObject;
+import org.OOPproject.BrickBreakerFX.model.MovableObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Unit tests cho lớp MovableObject
+ * Unit tests cho lá»›p MovableObject
  */
 class MovableObjectTest {
 
@@ -15,11 +15,11 @@ class MovableObjectTest {
 
     @BeforeEach
     void setUp() {
-        // Lớp giả cụ thể chỉ để test
+        // Lá»›p giáº£ cá»¥ thá»ƒ chá»‰ Ä‘á»ƒ test
         movable = new MovableObject(10, 20, 30, 40) {
             @Override
             public void move(double deltaTime) {
-                // Đơn giản: cộng vận tốc vào vị trí
+                // ÄÆ¡n giáº£n: cá»™ng váº­n tá»‘c vÃ o vá»‹ trÃ­
                 this.x += velocityX * deltaTime;
                 this.y += velocityY * deltaTime;
             }
@@ -67,3 +67,4 @@ class MovableObjectTest {
         assertTrue(movable instanceof GameObject);
     }
 }
+

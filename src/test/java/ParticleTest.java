@@ -1,5 +1,5 @@
 import javafx.scene.paint.Color;
-import org.OOPproject.ArkanoidFX.model.Particle;
+import org.OOPproject.BrickBreakerFX.model.effects.Particle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -68,3 +68,4 @@ class ParticleTest {
         assertTrue(smallerSize < originalSize, "Particle size should shrink as life decreases");
     }
 }
+
